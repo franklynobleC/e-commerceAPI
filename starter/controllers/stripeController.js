@@ -16,8 +16,18 @@ const paymentIntent = await stripe.paymentIntents.create({
 
     console.log(paymentIntent);
     resp.json({ clientSecret: paymentIntent.client_secret });
+
     // resp.send('stripe route')
 
 }
 
-module.exports = stripeController;   
+const testController = async( req, resp) => {
+ 
+  console.log('test Controller');
+  resp.json({ object: req.body })
+}
+
+module.exports = {
+  stripeController,
+  testController
+}  
