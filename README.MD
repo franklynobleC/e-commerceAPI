@@ -25,3 +25,16 @@ docgen build -i fileName.json -o index.html
 []setup  /GET Route 
 [] setup express.json() middleware 
 []setup 404 and errorHandler middleware
+
+
+#### morgan package
+--[Morgan Package] (https:www.npm.js.com/package/morgan)
+
+#### User Model 
+
+- [] create  folder and User.js file
+- [] create Schema with nam, password, (all typeing)
+- [] export mongoose model
+
+#### Validator package 
+- [Validator](https//www.npm.js.com/package/validator)

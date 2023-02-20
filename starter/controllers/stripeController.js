@@ -1,5 +1,6 @@
 
 require('dotenv').config();
+const mongooseModel = require('../models/User');
 const stripe = require('stripe')(process.env.STRIPE_API_KEY);
 
 const stripeController = async (req, resp) => {
@@ -14,7 +15,7 @@ const paymentIntent = await stripe.paymentIntents.create({
     currency: 'usd',
 });
 
-    console.log(paymentIntent);
+    console.log(paymentIntent);  
     resp.json({ clientSecret: paymentIntent.client_secret });
 
     // resp.send('stripe route')
@@ -23,8 +24,8 @@ const paymentIntent = await stripe.paymentIntents.create({
 
 const testController = async( req, resp) => {
  
-  console.log('test Controller');
-  resp.json({ object: req.body })
+  console.log('from test Controller 1');
+  resp.json({ object: resp.body })
 }
 
 module.exports = {
