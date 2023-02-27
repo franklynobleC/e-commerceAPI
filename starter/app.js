@@ -2,11 +2,20 @@ const express = require('express')
 require('dotenv').config()
 require('express-async-errors');
 const DbConnection = require('./db/connectdb');
+
+//routers 
+const authRouter = require('./routes/authRoute')
+
 const morgan = require('morgan')
 // const route = require('./routes/routes');
 const {testController, stripeController} = require('./controllers/stripeController')
 const notFoundMiddleware = require('./middleware/not-found.js');
 const errorHandlerMiddleware = require('./middleware/error-handlers');
+
+ 
+
+
+
 
 
 const app = express();
@@ -19,7 +28,11 @@ app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware); 
 
  const port = process.env.PORT || 4000;
+app.get('/', (req,res) => {
+   res.send('e-commerce api')
+});
 
+app.use('api/v1/auth', authRouter);
 
  const  start = async() => {
     
