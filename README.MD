@@ -38,3 +38,14 @@ docgen build -i fileName.json -o index.html
 
 #### Validator package 
 - [Validator](https//www.npm.js.com/package/validator)
+
+#### Auth routes Structure 
+- [] create controller folder 
+- [] add athController file
+- [] exporet (resgister, login, logout) functions
+- [] create routes folder 
+- [] setup authRoutes file 
+- []  import all routes 
+- []  setup all controllers
+- []  setup three routes 
+- []  post('/register') post('/login') get('logout')

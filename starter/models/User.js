@@ -1,8 +1,10 @@
-const Mongoose = require('mongoose');
+const mongoose = require('mongoose');
+const validator = require('validator');
 
 
 
-const UserSchema = new Mongoose.Schema [{
+
+const UserSchema = new mongoose.Schema ({
  name : {
     type: String,
     required: true,
@@ -10,11 +12,18 @@ const UserSchema = new Mongoose.Schema [{
  },
  emamil : {
     type: String ,
-    required : true,
+    required : [true, 'please  provide email'],
+    validate: {
+      validator: validator.isEmail,
+      message: 'please provide a valid email',
+    },
+  
  },
  password: {
     type : String,
-    required : true,
+    required : [true, 'Please provide password'],
+    minlength: 3,
+    maxlength: 50,
  },
 
  role: {
@@ -23,6 +32,6 @@ const UserSchema = new Mongoose.Schema [{
     default: 'user',
  },
 
-}]
+})
 
-module.exports = Mongoose.model("User", UserSchema);
+module.exports = mongoose.model("User", UserSchema);
