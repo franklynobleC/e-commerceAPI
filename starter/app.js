@@ -24,15 +24,18 @@ app.use(express.json()); // gives  access to  data in json using postman
 app.get('/test', testController);
 
 
-app.use(notFoundMiddleware);
-app.use(errorHandlerMiddleware); 
-
- const port = process.env.PORT || 4000;
 app.get('/', (req,res) => {
    res.send('e-commerce api')
 });
 
-app.use('api/v1/auth', authRouter);
+//from authRoute
+app.use('/api/v1/auth', authRouter);
+
+app.use(notFoundMiddleware);
+app.use(errorHandlerMiddleware); 
+
+ const port = process.env.PORT || 4000;
+
 
  const  start = async() => {
     

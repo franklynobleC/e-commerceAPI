@@ -9,10 +9,14 @@ const UserSchema = new mongoose.Schema ({
     type: String,
     required: true,
     
+    
  },
- emamil : {
-    type: String ,
+ email : {
+    type: String , 
+    unique : true,
+
     required : [true, 'please  provide email'],
+     
     validate: {
       validator: validator.isEmail,
       message: 'please provide a valid email',

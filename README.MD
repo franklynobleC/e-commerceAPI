@@ -49,3 +49,13 @@ docgen build -i fileName.json -o index.html
 - []  setup all controllers
 - []  setup three routes 
 - []  post('/register') post('/login') get('logout')
+
+
+
+
+
+- [] create User 
+- []  send response with entire user (only while testing)
+- [] check if email already in use
+- []  ignore 'role'
+- [] alternative 'admin' setup
