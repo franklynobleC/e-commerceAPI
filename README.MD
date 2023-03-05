@@ -56,6 +56,13 @@ docgen build -i fileName.json -o index.html
 
 - [] create User 
 - []  send response with entire user (only while testing)
-- [] check if email already in use
+- [] check if email already in use(schema and controller)
 - []  ignore 'role'
 - [] alternative 'admin' setup
+
+#### Handle Password
+
+- [] UserSchema.pre('save') - hook
+- this  points  to User
+-  bcrypt.genSalt - nu,erb of  rounds
+-  bcrypt.hash
