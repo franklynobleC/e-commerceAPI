@@ -61,8 +61,16 @@ docgen build -i fileName.json -o index.html
 - [] alternative 'admin' setup
 
 #### Handle Password
-
+   
 - [] UserSchema.pre('save') - hook
 - this  points  to User
 -  bcrypt.genSalt - nu,erb of  rounds
 -  bcrypt.hash
+
+
+#### JWT 
+- [] require 'jsonwebtoken' package 
+- [] create jwt - jwt.sign(payload, secret)
+- []  verify jwt - jwt.verify(token,secret)
+- [] add variable in  .env JWT_SECRET=jwtSecret and JWT_LIFETIME=1d
+- [] set it up as  functions in utils

@@ -2,53 +2,59 @@
 const { default: isEmail } = require('validator/lib/isEmail');
 const  UserSchema = require('../models/User');
 const {StatusCodes} = require('http-status-codes');
-const Bcrypt = require('bcrypt');
+// const Bcrypt = require('bcrypt');
+const  jwt =  require('jsonwebtoken');
 const  {CustomError} = require('../error');
 const { error } = require('console');
-//  require('dotenv').config();
+ require('dotenv').config();
+
 
 
 const register = async(req, res) => {
-  const   saltRounds = 10;
-       let {name, email, password} = req.body;
+
+ 
+
+
+//   const   saltRounds = 10;
+      const {name, email, password} = req.body;
         if (!name || !email || !password) {
             console.log('please enter a  valid  email')
         
-           return   res.json({error: res.error})
-        } 
-
-      
+        
+            return   res.json({error: res.error})
+        }      
     
 
-    const  emailAlreadyExists = await UserSchema.findOne({email});
+    const emailAlreadyExist = await UserSchema.findOne({email});
+   
 
-    if (emailAlreadyExists) {
+    if (emailAlreadyExist) {
         throw new Error('Email Already Exist')
         // return res.status(StatusCodes.BAD_REQUEST).json({error : error.name})
     }
 
+
  
     // first registered user in admin
-     const isFirstAccount = (await UserSchema.countDocuments({})) === 0;
+    const isFirstAccount = (await UserSchema.countDocuments({})) === 0;
 
      const role =  isFirstAccount ? 'admin' : 'user' ;
 
-            //generate salt 
-             const salt = Bcrypt.genSaltSync(saltRounds);
-
-            //  hash password 
-              password = Bcrypt.hashSync(password, salt);
       
         const UserData  =    await  UserSchema.create({name, email, password, role})
 
-        UserData.save((err) => {
+         const tokenUser = {name: UserData.name, userId:UserData._id, role: UserData.role }
+
+        // UserData.save((err) => {
                   
-            console.log('email created')
-           return  res.status(StatusCodes.CREATED).json({ UserData});
-          
-    
+        //    console.log('email created')
+
+
+            const  token =  jwt.sign(tokenUser, 'jwtSecret' ,{expiresIn: '1d'} )
+           return  res.status(StatusCodes.CREATED).json({ tokenUser, token});
+            
         
-     } )
+    //  } )
 
     // // console.log(req.body)
     // console.log(UserData)
@@ -64,9 +70,7 @@ const register = async(req, res) => {
         //     }
         //  });
         //  }
-    }
-
-          
+       }          
 
       
        // res.send('register route User')
@@ -85,4 +89,4 @@ module.exports = {
     register,
     login,
     logout
-};
+}; 
