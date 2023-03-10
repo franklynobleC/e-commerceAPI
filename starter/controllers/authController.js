@@ -6,6 +6,7 @@ const {StatusCodes} = require('http-status-codes');
 const  jwt =  require('jsonwebtoken');
 const  {CustomError} = require('../error');
 const { error } = require('console');
+const {createJWT} = require('../utils')
  require('dotenv').config();
 
 
@@ -48,10 +49,11 @@ const register = async(req, res) => {
         // UserData.save((err) => {
                   
         //    console.log('email created')
+        // the payload  must not contain password .. 
+            // const  token =  jwt.sign(tokenUser, 'jwtSecret' ,{expiresIn: '1d'} )
 
-
-            const  token =  jwt.sign(tokenUser, 'jwtSecret' ,{expiresIn: '1d'} )
-           return  res.status(StatusCodes.CREATED).json({ tokenUser, token});
+          const token = createJWT({payload:tokenUser})
+           return  res.status(StatusCodes.CREATED).json({ user: tokenUser, token});
             
         
     //  } )
