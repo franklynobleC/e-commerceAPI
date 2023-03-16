@@ -68,9 +68,45 @@ docgen build -i fileName.json -o index.html
 -  bcrypt.hash
 
 
+
 #### JWT 
 - [] require 'jsonwebtoken' package 
 - [] create jwt - jwt.sign(payload, secret)
 - []  verify jwt - jwt.verify(token,secret)
 - [] add variable in  .env JWT_SECRET=jwtSecret and JWT_LIFETIME=1d
 - [] set it up as  functions in utils
+- [] refactor code, create jwt functions  in utils
+- [] setup func attachCookiesToResponse
+- [] accept payload(tokenUser)
+- [] create token, setup cookie
+- [] send back the response or  not
+- [] create token, setup cookie
+- [] send  back the response or  not   
+
+
+#### Login Route
+- [] check if email and password exist, if  one missing return 400
+
+- [] find user,  if  no user return 401
+- [] check password,  if does not match cookie
+- [] if everything is correct,  attach cookie 
+  and  send  back the same response as in  register
+
+  #### Logout Route  
+  - [] set token cookie equal to string or null 
+  - [] set expires:new Date(Date.Now())
+
+ - ad
+
+
+#### User Routes Structure
+
+-  [] add userController file 
+-  [] export (getAllUsers, getSingleUser, ShowCurrentUser, UpdateUser, upDatePassword) functions
+-  [] res.send('some string value')
+-  [] setup userroutes file 
+-  [] import all controller 
+-  [] setup just one routes  - router.route('/').get(getAllUser); 
+-  [] import userRoutes as userrouter in the app.js 
+-  [] setup app.use('/api/v1/users', userRouter)
+
