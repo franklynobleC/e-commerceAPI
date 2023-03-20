@@ -110,3 +110,17 @@ docgen build -i fileName.json -o index.html
 -  [] import userRoutes as userrouter in the app.js 
 -  [] setup app.use('/api/v1/users', userRouter)
 
+- [] Get all users where  role is 'user' and  remove passowrd
+-[] Get Single User where id matches id param and  remove password 
+- [] if  no user 404
+
+#### updatePassword 
+
+- [] almost identical  to  login  user
+- [] add  authenticatenuser middleware in the route 
+- [] check  for oldPassword and  newPassword in the Body
+- [] look for  user with req.user.userId 
+- [] check  if  oldpaassword matches with user.comparePassword 
+- [] if no  match 401 
+- [] if  everything  is  good user.password equal  to  newPassword
+
