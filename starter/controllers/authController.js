@@ -68,6 +68,7 @@ const register = async(req, res) => {
         //     }
         //  });
         //  }
+        res.status(StatusCodes.CREATED).json({user: tokenUser});
        };       
 
       
@@ -89,7 +90,7 @@ const register = async(req, res) => {
 
                   
                    const SingleUser = await UserSchema.findOne({email})
-
+               console.log(SingleUser)
                   
             if (!SingleUser) {
               throw new  ('no user found!')             

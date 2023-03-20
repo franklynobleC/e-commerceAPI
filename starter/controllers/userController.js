@@ -1,5 +1,6 @@
 
 const { StatusCodes } = require('http-status-codes');
+const CustomErr = require('../error');
 
 
 const User = require('../models/User')
@@ -84,8 +85,36 @@ const updateUser = async(req, res) => {
 
 const updateUserPassword = async(req, res) => {
 
-    console.log('update password');
-    res.send("");
+    let { oldpassword,newpassword} = req.body; 
+    console.log(oldpassword, newpassword) // console.log(req.user.userId)
+
+   
+    if(!oldpassword || !newpassword) {
+        throw new CustomErr.BadRequestError('invalid credentials')
+    }
+
+  const singleUser = await User.findOne({_id: req.user.userId});
+   console.log(singleUser + " &&&&&&&&7")
+
+    console.log(singleUser)
+
+       
+ const  isPasswordCorrect = await singleUser.comparePassword(oldpassword);
+         
+ if(!isPasswordCorrect) {
+   throw new CustomErr.UnauthenticatedError('User error! not Authenticated');
+ }
+            
+       singleUser.password = newpassword;
+          
+        await singleUser.save();
+
+        //  console.log(ts)
+        console.log(singleUser + " ------------===")
+
+
+    // console.log(t1 +"new password is:  "+ password)
+    res.status(StatusCodes.OK).json({user:singleUser.name, email: singleUser.email, _id: singleUser.id});
 }
 
 
