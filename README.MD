@@ -124,3 +124,39 @@ docgen build -i fileName.json -o index.html
 - [] if no  match 401 
 - [] if  everything  is  good user.password equal  to  newPassword
 
+
+#### Product Model
+
+- [] create Product.js in model folde 
+- [] create Schema 
+- [] name : {type:String}
+- [] price: {type:Number}
+- [] description: {type:String}
+- [] image: {type:String}
+- [] category: {type:String}
+- [] company: {type:String}
+- [] colors: {type: []}
+- [] featured: {type:boolean} 
+- [] inventory: {type:Number}
+- [] averagerating:{type:Number}
+- [] user
+- []set timestamps 
+- [] export Product Model
+
+
+#### Product Struture
+
+- [] add productController file in Controllers
+- [] export (createProduct, getAllProducts,
+  getSingleProduct, updateProduct, deletProduct, uploadImage) functions
+- [] res.send('function name')
+- [] setup productRoutes file in routes
+- [] import all controllers 
+- [] only  getAllProducts and getSingleProduct accessible to  public
+- [] rest only by admin (setup middleware)
+- [] typical setup 
+- [] router.route ('/uploadImage').post(uploadImage)
+- [] impport productRoutes as productRouter in the app.js 
+- [] setup app.us('/api/vi/products', productRouter)
+
+ 

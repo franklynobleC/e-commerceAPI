@@ -3,9 +3,13 @@ require('dotenv').config()
 require('express-async-errors');
 const DbConnection = require('./db/connectdb');
 
-//routers 
+//authRouters 
 const authRouter = require('./routes/authRoute')
 const userRouter = require('./routes/userRoutes');
+
+
+//ProductRoute
+const productRoute = require('./routes/productRoute');
 
 const morgan = require('morgan')
 const cookieParser = require('cookie-parser');
@@ -26,6 +30,9 @@ app.use(express.json()); // gives  access to  data in json using postman
 app.use(cookieParser(process.env.JWT_SECRET));
 
 
+
+//from productRoute
+app.use('/api/v1/products', productRoute);
 
 //from userRoute
 app.use('/api/v1/users', userRouter);
