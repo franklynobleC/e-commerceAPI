@@ -36,6 +36,11 @@ const UserSchema = new mongoose.Schema({
 });
 
 UserSchema.pre('save', async function () {
+     console.log('hey there!')
+     console.log(this.modifiedPaths());
+     console.log(this.isModified())
+
+     if(!this.isModified('password')) return;
    const salt = await Bcrypt.genSalt(10);
    this.password = await Bcrypt.hash(this.password, salt);
 });
@@ -43,7 +48,7 @@ UserSchema.pre('save', async function () {
 UserSchema.methods.comparePassword = async function (candidatePassword) {
    const isMatch = await Bcrypt.compare(candidatePassword ,this.password);
     if(!isMatch) {
-      throw new Error('error password')
+      throw new Error('error wrong password')
     }
    return isMatch;
 };

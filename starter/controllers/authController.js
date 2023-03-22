@@ -44,30 +44,8 @@ const register = async(req, res) => {
 
          const tokenUser = {name: UserData.name, userId:UserData._id, role: UserData.role }
 
-         // UserData.save((err) => {
-                  
-          //    console.log('email created')
-          // the payload  must not contain password .. 
-            // const  token =  jwt.sign(tokenUser, 'jwtSecret' ,{expiresIn: '1d'} )
-
-        //   const token = createJWT({payload:tokenUser})
- 
-         
-          //create a cookie and  getting response  in the cookie Object postman
-           
-    // // console.log(req.body)
-    // console.log(UserData)
-    //     UserSchema.find({email : UserData.email}, (err, docs) => {
-    //         if(docs.length) {
-    //             console.log('email already exist')
-    //             return res.json({error : "email already Exist"})
-           
-    //         }else{
                 
 
-        //     }
-        //  });
-        //  }
         res.status(StatusCodes.CREATED).json({user: tokenUser});
        };       
 

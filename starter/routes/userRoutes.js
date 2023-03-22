@@ -14,7 +14,7 @@ const {getAllUsers, getSingleUser,
   
   
     router.get('/showMe', authenticateUser, showCurrentUser)
-    router.get('/updateUser', updateUser)
+    router.patch('/updateUser',  authenticateUser,  updateUser)
     router.patch('/updateUserPassword', authenticateUser, updateUserPassword)
    
     router.route('/:id').get( authenticateUser, getSingleUser);

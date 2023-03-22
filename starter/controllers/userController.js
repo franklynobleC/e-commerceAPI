@@ -1,9 +1,11 @@
 
 const { StatusCodes } = require('http-status-codes');
 const CustomErr = require('../error');
+const {isTokenValid, attachCookiesToResponse, checkPermissions} = require('../utils');
 
 
-const User = require('../models/User')
+const User = require('../models/User');
+const createTokenUser = require('../utils/createTokenUser');
 
 
 
@@ -29,20 +31,20 @@ const getAllUsers = async (req, res) => {
 
 const getSingleUser = async (req, res) => {
 
-console.log('--------------------------------------')
-
-       const  id = req.params.id;
+      const  id = req.params.id;
 
        console.log(id)
     const singleUser = await User.findOne({_id: req.params.id}).select('-password');
-    console.log(singleUser)
+    // console.log(singleUser)
 
     if (!singleUser) {
    
         res.status(StatusCodes.BAD_REQUEST).json({error:"Error!! user  not found"})
     }
+    checkPermissions(req.user ,singleUser._id);
 
     res.status(StatusCodes.OK).json({user: singleUser})
+
 }
 
 const showCurrentUser = async (req, res)=> {
@@ -53,40 +55,57 @@ const showCurrentUser = async (req, res)=> {
 
 const updateUser = async(req, res) => {
 
-            let {_id, name, email, role} =  req.body;
+        const {name, email} =  req.body;
 
-             if(!_id || _id ==='') {
-                throw new Error('User not Found!')
-             }
-             if(!name || !email || !role) {
-                throw new Error('enter a new email and password')
-             }
+             if(!email || !name) {
+                throw new CustomErr.BadRequestError('Please provide all  values ')
+             }   
             
-            console.log(name, email, role)
+            console.log(name, email)
+              const singData = await User.findOneAndUpdate(req.user.userId);
+                singData.name = name;
+                singData.email = email;                
 
+                await singData.save()
+                        
+                
+              const tokenUser = createTokenUser(singData)             
+               
+              console.log(tokenUser)
+                      attachCookiesToResponse({res, user: tokenUser})
+              
+        //    console.log(token +"  FROM  TOKEN")
 
-            const singleUser = await User.findById(_id)
-                singleUser.name = name ;
-               singleUser.email = email;
-               singleUser.role = role;
+           res.status(StatusCodes.OK).json({user:tokenUser})
+        
+                   
 
-               console.log(singleUser)
-           
-       
-        console.log(singleUser)        
-
-
-
-     console.log('update User');
-    res.send(singleUser);
 }
+
+
+//update With findOneAndUpdate
+// // const updateUser1 = async(req,res) => {
+
+// // const {email, name } = req.body ;
+
+// // if(!email || name) {
+// //     throw new CustomErr.BadRequestError('please provide all values')
+// // }
+// // const user = await User.findOneAndUpdate({
+// //     _id:req.user.userId},
+// //     {email, name},
+// //     {new: true, runValidators: true}
+// // )
+
+
+// }
 
 
 
 const updateUserPassword = async(req, res) => {
 
     let { oldpassword,newpassword} = req.body; 
-    console.log(oldpassword, newpassword) // console.log(req.user.userId)
+    console.log(oldpassword, newpassword);
 
    
     if(!oldpassword || !newpassword) {
@@ -94,7 +113,6 @@ const updateUserPassword = async(req, res) => {
     }
 
   const singleUser = await User.findOne({_id: req.user.userId});
-   console.log(singleUser + " &&&&&&&&7")
 
     console.log(singleUser)
 
