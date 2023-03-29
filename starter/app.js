@@ -61,6 +61,13 @@ app.get('/', (req,res) => {
 //from authRoute
 app.use('/api/v1/auth', authRouter);
 
+//from productRoute
+app.use('/api/v1/products', productRoute);
+
+//from userRoute
+app.use('/api/v1/users', userRouter);
+
+
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware); 
 

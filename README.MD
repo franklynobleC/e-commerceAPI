@@ -160,3 +160,18 @@ docgen build -i fileName.json -o index.html
 - [] setup app.us('/api/vi/products', productRouter)
 
  
+
+ #### create Product 
+ - [] create user Property on  req.body and  set  it equal to  userId (req.user)
+
+ - [] pass req.body into Product.create
+ - [] send  back  the product
+
+ #### Remaining Controllers (apart from  the  uploadImage)
+
+ - [] getAllProducts
+ - [] getSingleProduct
+ - [] updateProduct 
+ - [] deleteProduct
+ - [] typical crud, utilize (task  or  job) project 
+ -

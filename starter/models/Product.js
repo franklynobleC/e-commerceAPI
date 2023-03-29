@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 
 
 
-const ProductSchema = new moongose.Schema({
+const ProductSchema = new mongoose.Schema({
     name: {
         type: String, 
         required: [true, 'Please provide product'],
@@ -29,21 +29,22 @@ const ProductSchema = new moongose.Schema({
     category : {
         type: String ,
         required: [true, 'please select  product category'],
-        enum: ['office', 'bedroom'],
+        enum: ['office', 'bedroom' ,'kitchen'],
         default: 'office',
     },
     company : {
         type: String ,
         required: [true, 'please select  product category'],
         enum: {
-            values:  ['ikea', 'liddy', 'macros'],
+            values:  ['ikea', 'liddy', 'marcos'],
             message: "{VALUE} is  not  supported",
         },
         
     },
      colors: {
         type: [String],
-        required: true
+        required: true,
+        default: ['#222']
 
      },
 
@@ -72,10 +73,11 @@ const ProductSchema = new moongose.Schema({
         required: [ true,'must be a user']
 
 
-    }, 
+    },
+}, 
 
-    timestamps: true
+   {timestamps: true},
    
-});
+);
 
 module.exports = mongoose.model('Product', ProductSchema);
