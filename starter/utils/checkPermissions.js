@@ -12,7 +12,7 @@ const checkPermissions = (requestUser, resourcesUserId) => {
 
     throw new CustomErr.UnauthorizedError('Not Authorized to access this route')
 
-};
+}; 
 
 
 

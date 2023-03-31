@@ -1,6 +1,7 @@
 const Product = require('../models/Product');
 const User = require('../models/User');
 const CustomErr = require('../error/');
+const path = require('path');
 const { StatusCodes } = require('http-status-codes');
 
 
@@ -21,13 +22,13 @@ const createProduct = async (req, res) => {
 //get all Products data
 const getAllProducts = async (req, res) => {
     
-  const allProducts =  await Product.find();
+  const allProducts =  await Product.find({});
   
   if(!allProducts) {
     throw  new CustomErr.BadRequestError('No data found in Products database')
   }
   
-  res.status(StatusCodes.OK).json({products: allProducts})
+  res.status(StatusCodes.OK).json({products: allProducts, count: allProducts.length})
 }
 
 
@@ -50,13 +51,23 @@ const getSingleProduct = async(req, res) => {
 
 const updateProduct = async(req, res) => {
 
-
-    console.log(req.body);
+   //get userId  from the request params
+    const  { id: productId } = req.params;
+           
+    console.log(productId)
      
     if(req.body ==="" || req.body === null || !req.body) {
         throw new CustomErr.BadRequestError('please enter product information');
     }  
-   const updateProduct  = await Product.findOneAndUpdate(req.body);
+   const updateProduct  = await Product.findOneAndUpdate({_id:productId}, req.body, {
+    new: true,
+    runValidators: true,
+   });
+
+   if(!updateProduct) {
+    throw new CustomErr.BadRequestError('product with id', updateProduct, 'not found');
+}  
+   
     
    await updateProduct.save();
    
@@ -67,10 +78,11 @@ const updateProduct = async(req, res) => {
 const deleteProduct = async(req, res) => {
     const productId = req.params.id;
 
-    const deleteProductById = await Product.findByIdAndDelete(productId)
+    const deleteProductById = await Product.findOne(productId)
    if(!deleteProductById) {
     throw new CustomErr.BadRequestError('No document with id,' , deleteProductById, 'in database')
    }
+   await deleteProductById.remove();
 
     console.log(deleteProductById)
     res.status(StatusCodes.OK).json({success:'product successfully deleted!'})
@@ -80,9 +92,31 @@ const deleteProduct = async(req, res) => {
 }
 
 const uploadImage = async(req, res) => {
+    console.log(req.files.image.mimetype);
 
-    console.log()
-    res.send('upload Image');
+    if(!req.files) {
+        throw new CustomErr.BadRequestError('No file Uploaded')
+    }
+    const productImage = req.files.image;
+
+   if (!productImage.mimetype.startsWith('image')) {
+        throw new CustomErr.BadRequestError('please Upload Image')
+    }
+  
+    //maximum size  of  image is 1MB.
+    const maxSize = 1024 * 1024;
+
+    if(productImage.size > maxSize) {
+        throw  new CustomErr.BadRequestError('please upload image smaller than 1MB');
+    }
+
+    const imagePath = path.join(__dirname, '../public/uploads/' + `${productImage.name}`)
+
+ await productImage.mv(imagePath);
+
+    console.log(req.files)
+
+    res.status(StatusCodes.OK).json({ image: `/uploads/${productImage.name}`});
 
 }
 

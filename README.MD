@@ -163,7 +163,6 @@ docgen build -i fileName.json -o index.html
 
  #### create Product 
  - [] create user Property on  req.body and  set  it equal to  userId (req.user)
-
  - [] pass req.body into Product.create
  - [] send  back  the product
 
@@ -174,4 +173,18 @@ docgen build -i fileName.json -o index.html
  - [] updateProduct 
  - [] deleteProduct
  - [] typical crud, utilize (task  or  job) project 
- -
+ 
+ #### Upload Image
+
+
+ #### Review Model 
+
+ - [] create Review.js in  models folder 
+ - [] rating : {type:Number}
+ - [] title: {type:String}
+ - [] comment : {type:String}
+ - [] user 
+ - [] product
+ - [] set timestamps
+ - [] export Review model
+  

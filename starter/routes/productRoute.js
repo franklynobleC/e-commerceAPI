@@ -14,7 +14,7 @@ router.get('/getAllProduct', getAllProducts);
 router.post('/uploadImage',  authenticateUser, authorizePermissions('admin'),  uploadImage)
 router.get('/:id',   authenticateUser, authorizePermissions('admin'),  getSingleProduct);
 router.delete('/:id', authenticateUser, authorizePermissions('admin'), deleteProduct);
-router.patch('/updateProduct',authenticateUser, authorizePermissions('admin'),  updateProduct)
+router.patch('/:id',authenticateUser, authorizePermissions('admin'),  updateProduct)
 
 
 

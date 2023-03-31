@@ -3,6 +3,7 @@ require('dotenv').config()
 require('express-async-errors');
 const DbConnection = require('./db/connectdb');
 
+
 //authRouters 
 const authRouter = require('./routes/authRoute')
 const userRouter = require('./routes/userRoutes');
@@ -13,6 +14,9 @@ const productRoute = require('./routes/productRoute');
 
 const morgan = require('morgan')
 const cookieParser = require('cookie-parser');
+ // file upload import 
+ const fileUpload = require('express-fileupload');
+
 // const route = require('./routes/routes');
 const {testController, stripeController} = require('./controllers/stripeController')
 const notFoundMiddleware = require('./middleware/not-found.js');
@@ -24,12 +28,16 @@ const errorHandlerMiddleware = require('./middleware/error-handlers');
 
 
 
+
 const app = express();
 app.use(morgan('tiny'))
 app.use(express.json()); // gives  access to  data in json using postman
 app.use(cookieParser(process.env.JWT_SECRET));
 
+//make  this file public
+app.use(express.static('./public'))
 
+app.use(fileUpload());
 
 //from productRoute
 app.use('/api/v1/products', productRoute);
