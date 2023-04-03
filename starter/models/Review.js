@@ -14,7 +14,14 @@ const ReviewSchema = new mongoose.Schema({
     },
     title : {
      type : String,
-     comment : String,
+     required: [true, 'please enter review title'],
+
+        },
+
+        comment : {
+            type : String,
+            required: [true, 'please enter product comment'],
+
         },
 
         user: {
@@ -30,9 +37,13 @@ const ReviewSchema = new mongoose.Schema({
         }
     },
 
-    {timestamps: true},
-    
+    {timestamps: true},   
     
 
 );
+
+//the user  can  have  only  one  review Per Product
+ReviewSchema.index({ product: 1, user: 1}, {unique: true });
+
+
 module.exports = mongoose.model('Review', ReviewSchema);

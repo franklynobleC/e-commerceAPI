@@ -6,7 +6,8 @@ const DbConnection = require('./db/connectdb');
 
 //authRouters 
 const authRouter = require('./routes/authRoute')
-const userRouter = require('./routes/userRoutes');
+const userRouter = require('./routes/userRoute');
+const reviewRouter = require('./routes/reviewRoute')
 
 
 //ProductRoute
@@ -38,6 +39,8 @@ app.use(cookieParser(process.env.JWT_SECRET));
 app.use(express.static('./public'))
 
 app.use(fileUpload());
+
+app.use('/api/v1/reviews', reviewRouter);
 
 //from productRoute
 app.use('/api/v1/products', productRoute);

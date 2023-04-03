@@ -187,4 +187,28 @@ docgen build -i fileName.json -o index.html
  - [] product
  - [] set timestamps
  - [] export Review model
+
+#### Create Review 
+
+-[] Check for product in the req.body
+- [] attach user property (set equal to req.user.userId)
+- [] create review 
+- [] do not test yet
   
+
+
+  ####  Get All Reviews and Get Single Review
+  - [] both public routes, typical setup 
+
+
+
+#### Delete Review 
+
+- [] get id from the request.params
+-  [] check if review exists 
+-  [] if no review, 404 
+-  [] use permissions (req.user, review.user)
+-  [] use await review.remove()
+-  [] send back 200
+
+#### Update Review
