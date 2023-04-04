@@ -65,12 +65,47 @@ const getSingle = async (req, res) => {
 }
 
 const updateReview = async(req, res) => {
-    res.send('update review')
-}
+     const {id: reviewId} = req.params;
+     const {rating, title, comment} = req.body;
+
+     console.log(rating, title, comment)
+
+     const alreadyExist =  await Review.findOne({_id: reviewId})
+      
+       if(!alreadyExist) {
+        throw  new CustomErr.BadRequestError('error!, no resource id found')
+       }
+       console.log(alreadyExist.user, req.user)
+       checkPermissions(req.user, alreadyExist.user)
+
+       alreadyExist.rating = rating;
+       alreadyExist.title = title;
+        alreadyExist.comment = comment;
+
+       await alreadyExist.save();
+
+       res.status(StatusCodes.CREATED).json({updatedReview: alreadyExist})
+    }
 
 const deleteReview = async(req, res) => {
+    const {id: reviewId} = req.params 
 
-    res.send('delete Review');
+     const reviewAlreadyExist = await Review.findById(reviewId);
+
+     if (!reviewAlreadyExist) {
+        throw  new CustomErr.BadRequestError('review with id', reviewAlreadyExist,  'not found')
+     }
+     // check  permission, only the user === admin, and user
+    checkPermissions(req.user, reviewAlreadyExist.user);
+
+console.log(req.user);
+console.log(reviewAlreadyExist.user);
+     console.log(reviewAlreadyExist)
+    
+     await reviewAlreadyExist.remove()
+
+
+    res.status(StatusCodes.OK).json({success: "review Successfully deleted!"});
 };
 
 module.exports = {

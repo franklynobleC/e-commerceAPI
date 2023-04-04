@@ -204,7 +204,7 @@ docgen build -i fileName.json -o index.html
 
 #### Delete Review 
 
-- [] get id from the request.params
+-  [] get id from the request.params
 -  [] check if review exists 
 -  [] if no review, 404 
 -  [] use permissions (req.user, review.user)
@@ -212,3 +212,12 @@ docgen build -i fileName.json -o index.html
 -  [] send back 200
 
 #### Update Review
+
+- [] get id from req.params
+- [] get {rating, title comment} from req.body
+- [] if no review, 404 
+- [] check permmissions
+- [] set review properties equal rating, title, comment 
+- [] use await review.save()
+- [] send  back  200
+- 

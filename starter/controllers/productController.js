@@ -40,7 +40,7 @@ const getSingleProduct = async(req, res) => {
        if(!productID) {
 
         throw new CustomErr.BadRequestError('No user found with id', productID)
-       }      
+       }    
 
         const  singleProduct = await Product.findById(productID);
 

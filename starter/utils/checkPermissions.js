@@ -5,7 +5,7 @@ const checkPermissions = (requestUser, resourcesUserId) => {
     console.log(requestUser );  
     console.log(resourcesUserId );
     // console.log(typeof  resourcesUserId);
-    //if  request role is  equal to  admin, proceed with the dunction
+    //if  request role is  equal to  admin, proceed with the function
     if(requestUser.role === 'admin') return ;
 
     if(requestUser.userId === resourcesUserId.toString()) return;
