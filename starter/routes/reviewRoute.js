@@ -8,15 +8,15 @@ const {createReview,
     updateReview,
     deleteReview } = require('../controllers/reviewController');
 
-    const{authenticateUser,authorizePermissions} = require('../middleware/authentication')
+    const{authenticateUser,authorizePermission} = require('../middleware/authentication')
 
 
-    router.post('/createReview', authenticateUser, authorizePermissions('admin'), createReview);
+    router.post('/createReview', authenticateUser, createReview);
     
     router.get('/getAllReviews', getAllReviews);
     router.get('/:id', getSingle)
-    router.patch('/:id',  authenticateUser, authorizePermissions('admin'),updateReview);
-    router.delete('/:id',  authenticateUser, authorizePermissions('admin'), deleteReview);
+    router.patch('/:id',  authenticateUser,updateReview);
+    router.delete('/:id',  authenticateUser, deleteReview);
 
     module.exports = router;
 

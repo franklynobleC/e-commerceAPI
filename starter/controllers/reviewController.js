@@ -43,7 +43,15 @@ console.log(req.user)
 
 const getAllReviews = async(req, res) => {
     
-   const allReviews = await Review.find({});
+   const allReviews = await Review.find({})
+   .populate({
+    path:'product',
+    select: 'name company price'})
+    .populate({
+        path: 'user',
+        select: 'name company price'
+    });;
+    
    if(!allReviews || allReviews.length === 0) {
     throw new CustomErr.BadRequestError('no document found');
 
@@ -73,7 +81,7 @@ const updateReview = async(req, res) => {
      const alreadyExist =  await Review.findOne({_id: reviewId})
       
        if(!alreadyExist) {
-        throw  new CustomErr.BadRequestError('error!, no resource id found')
+        throw  new CustomErr.BadRequestError('error, no resource id found')
        }
        console.log(alreadyExist.user, req.user)
        checkPermissions(req.user, alreadyExist.user)
@@ -98,8 +106,8 @@ const deleteReview = async(req, res) => {
      // check  permission, only the user === admin, and user
     checkPermissions(req.user, reviewAlreadyExist.user);
 
-console.log(req.user);
-console.log(reviewAlreadyExist.user);
+     console.log(req.user);
+     console.log(reviewAlreadyExist.user);
      console.log(reviewAlreadyExist)
     
      await reviewAlreadyExist.remove()
@@ -108,11 +116,23 @@ console.log(reviewAlreadyExist.user);
     res.status(StatusCodes.OK).json({success: "review Successfully deleted!"});
 };
 
+const getSingleProductReviews = async(req, res) => {
+const {id: productId} = req.params;
+
+console.log('from single product');
+  
+const reviews = await Review.find({ product:productId});
+console.log(reviews);
+ res.status(StatusCodes.OK).json({reviews, count: reviews.length});
+  
+}
+
 module.exports = {
    
-    createReview,
+     createReview,
      getAllReviews,
      getSingle,
      updateReview,
      deleteReview,
+     getSingleProductReviews
 }

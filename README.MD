@@ -220,4 +220,3 @@ docgen build -i fileName.json -o index.html
 - [] set review properties equal rating, title, comment 
 - [] use await review.save()
 - [] send  back  200
-- 

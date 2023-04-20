@@ -35,14 +35,14 @@ const getAllProducts = async (req, res) => {
 //get a Singel Product
 const getSingleProduct = async(req, res) => {
      
-       const productID = req.params.id;
+       const {id: productId} = req.params;
 
-       if(!productID) {
+       if(!productId) {
 
-        throw new CustomErr.BadRequestError('No user found with id', productID)
+        throw new CustomErr.BadRequestError('No user found with id', productId)
        }    
-
-        const  singleProduct = await Product.findById(productID);
+    // virtual  property  getting a single review
+        const  singleProduct = await Product.findById({_id: productId}).populate('reviews');
 
     console.log(singleProduct)
     res.status(StatusCodes.OK).json({singleProduct: singleProduct})
@@ -76,9 +76,9 @@ const updateProduct = async(req, res) => {
 }
 
 const deleteProduct = async(req, res) => {
-    const productId = req.params.id;
+    const {id: productId} = req.params;
 
-    const deleteProductById = await Product.findOne(productId)
+    const deleteProductById = await Product.findOne({_id: productId})
    if(!deleteProductById) {
     throw new CustomErr.BadRequestError('No document with id,' , deleteProductById, 'in database')
    }
