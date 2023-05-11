@@ -220,3 +220,36 @@ docgen build -i fileName.json -o index.html
 - [] set review properties equal rating, title, comment 
 - [] use await review.save()
 - [] send  back  200
+
+
+
+
+#### Order Schema 
+
+- [] create Order.js in  models folder 
+- [] create Schema
+- [] tax : {type:Number}
+- [] shippingFee: {type:Number}
+- []subtotal {type:Number}
+- [] OrderItems:[]
+- [] status:{type:String}
+- [] user 
+- [] clientSecret:{type:String}
+- [] paymentId:{type:String}
+- [] set timestamps 
+- [] export Order model  
+
+
+#### Order Structure
+- [] add orderCOntroller file in  controllers
+- [] export (getAllOrdes, getSingleOrder, getCUrrentOrders, createOrder, updateOrder) functions
+- [] re.send('function name')
+- [] setup orderRoutes file in routes
+- [] import all controllers 
+- [] authenticate user in all routes 
+- [] getAllOrders admin only 
+- [] typical REST setup 
+- [] router.route('/showAllMyOrders').get(getCurrentUserOrders)
+- [] import orderRoutes as orderRouter in the app.js 
+- [] setup app.use('api/v1/orders', orderRouter)
+

@@ -6,7 +6,8 @@ const {
   isTokenValid,
   attachCookiesToResponse,
   checkPermissions
-} = require('../utils')
+} = require('../utils');
+const { error } = require('console');
 
 
 const createReview = async(req, res) => {
@@ -78,9 +79,10 @@ const updateReview = async(req, res) => {
 
      console.log(rating, title, comment)
 
-     const alreadyExist =  await Review.findOne({_id: reviewId})
+     const alreadyExist =  await Review.findById(reviewId);
       
        if(!alreadyExist) {
+        console.log(alreadyExist)
         throw  new CustomErr.BadRequestError('error, no resource id found')
        }
        console.log(alreadyExist.user, req.user)
@@ -98,10 +100,12 @@ const updateReview = async(req, res) => {
 const deleteReview = async(req, res) => {
     const {id: reviewId} = req.params 
 
-     const reviewAlreadyExist = await Review.findById(reviewId);
+     console.log('from delete Review');
+
+     const reviewAlreadyExist = await Review.findOne({_id: reviewId});
 
      if (!reviewAlreadyExist) {
-        throw  new CustomErr.BadRequestError('review with id', reviewAlreadyExist,  'not found')
+        throw  new CustomErr.BadRequestError('no review with id', reviewAlreadyExist,  'not found')
      }
      // check  permission, only the user === admin, and user
     checkPermissions(req.user, reviewAlreadyExist.user);

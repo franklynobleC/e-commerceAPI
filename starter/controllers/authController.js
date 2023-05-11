@@ -58,7 +58,7 @@ const register = async(req, res) => {
              
 
              if(!email || !password ) {
-                throw new Error('please enter email or passowrd')
+                throw new Error('please enter email or password')
 
 
               }
@@ -72,7 +72,7 @@ const register = async(req, res) => {
                   
             if (!SingleUser) {
               throw new  ('no user found!')             
-              ('Invlaid Credentials');
+              ('Invalid Credentials');
             }                                         
                  
               const  isPasswordCorrect = await SingleUser.comparePassword(password);
@@ -84,7 +84,7 @@ const register = async(req, res) => {
              const tokenUser = {name: SingleUser.name, userId: SingleUser._id, role: SingleUser.role }
               attachCookiesToResponse({res, user:tokenUser });
 
-              res.status(StatusCodes.CREATED).json({user: tokenUser});
+              res.status(StatusCodes.OK).json({user: tokenUser});
             };
     
           // console.log("email is; " + email +"password is " +password)

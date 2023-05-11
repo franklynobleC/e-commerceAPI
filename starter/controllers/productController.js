@@ -87,8 +87,6 @@ const deleteProduct = async(req, res) => {
     console.log(deleteProductById)
     res.status(StatusCodes.OK).json({success:'product successfully deleted!'})
 
-
-
 }
 
 const uploadImage = async(req, res) => {
@@ -127,6 +125,5 @@ module.exports = {
     deleteProduct,
     uploadImage,
     updateProduct
-
 }
 
