@@ -13,6 +13,10 @@ const reviewRouter = require('./routes/reviewRoute')
 //ProductRoute
 const productRoute = require('./routes/productRoute');
 
+
+//orderRouter
+const orderRoute = require('./routes/orderRoute');
+
 const morgan = require('morgan')
 const cookieParser = require('cookie-parser');
  // file upload import 
@@ -79,6 +83,8 @@ app.use('/api/v1/products', productRoute);
 app.use('/api/v1/users', userRouter);
 
 
+//from orderRoute
+app.use('/api/v1/orders',orderRoute);
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware); 
 

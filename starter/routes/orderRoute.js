@@ -9,6 +9,12 @@ const {createOrder,getAllOrders,getCurrentUserOrders,getSingleOrder,updateOrder}
 
 
 
-router.get('/getAllOrders', [authenticateUser, authorizePermissions('admin') ], getAllOrders);
-router.get('/getSingleOrder', authenticateUser, getSingleOrder);
-router.post('/createOrder', authenticateUser, createOrder);
+router.get('/getAllOrder', [authenticateUser, authorizePermissions('admin') ], getAllOrders);
+router.post('/createOrder', authenticateUser, createOrder)
+router.get('/getCurrentUser', authenticateUser, getCurrentUserOrders)
+router.patch('/:id', [authenticateUser ,authorizePermissions('admin','user')], updateOrder);
+router.get('/:id', authenticateUser, getSingleOrder)
+
+
+
+module.exports = router;

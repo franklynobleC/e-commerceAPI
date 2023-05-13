@@ -253,3 +253,26 @@ docgen build -i fileName.json -o index.html
 - [] import orderRoutes as orderRouter in the app.js 
 - [] setup app.use('api/v1/orders', orderRouter)
 
+
+#### create Order 
+
+
+
+#### Get All Orders and  Get Single Order
+
+- [] getAllOrders - adminOnly 
+- [] getSingleOrder - CheckPermissions
+
+#### Get Current User Orders 
+- [] find Orders where User is equal to req.suer.userId
+
+ #### Update Order 
+ - [] get order Id
+ - [] get PaymentIntentId(req.body)
+ - [] get order 
+ - [] if does not exits - 404 
+ - [] check permissions 
+ - [] set paymentIntentId and  status as 'paid'
+ - [] order.save() 
+
+#### Create Docs

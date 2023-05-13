@@ -1,5 +1,5 @@
 const  mongoose = require('mongoose');
-const SingleCartItems = mongoose.Schema({
+const SingleOrderItemSchema = mongoose.Schema({
     name: {type: String, required: true},
     image: {type: String, required: true},
     price: {type: Number, required: true},
@@ -21,10 +21,14 @@ const OrderSchema =  new mongoose.Schema({
         required: [true,'please provide shipping fee amount']
 
     },
+
+      orderItems: [SingleOrderItemSchema
+],
+
     status: {
         type: String,
-        enum: ['pending', 'processed', 'shipped', 'delivered'],
-    default: pending
+        enum: ['pending', 'paid', 'processed', 'shipped', 'delivered', 'canceled'],
+    default: 'pending'
     },
      
     subTotal: {
@@ -37,8 +41,7 @@ const OrderSchema =  new mongoose.Schema({
         required: [true, 'please provide total amount']
 
     },
-    cartItems: [SingleCartItems
-],
+  
     // orderItems: [
     //     {
     //         type: mongoose.Schema.Types.ObjectId,
@@ -50,7 +53,7 @@ const OrderSchema =  new mongoose.Schema({
         type: String,   
         required: true,
     },
-    paymentIntentId: {
+    PaymentIntentId: {
         type:String, 
     },
     user: {

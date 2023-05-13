@@ -3,8 +3,6 @@ const Product = require('../models/Product');
 const { StatusCodes } = require('http-status-codes')
 const CustomErr = require('../error')
 const {
-  isTokenValid,
-  attachCookiesToResponse,
   checkPermissions
 } = require('../utils');
 const { error } = require('console');
