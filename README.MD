@@ -276,3 +276,33 @@ docgen build -i fileName.json -o index.html
  - [] order.save() 
 
 #### Create Docs
+
+- []Export Postman  Collection 
+- [] docgen build -i filename.json -o index.html
+- [] create index.html in public 
+
+#### Security Packages 
+
+- [] express-rate-limiter 
+- [] helmet 
+- [] xss-clean 
+- [] express-mongo-sanitize
+- [] cors (cookies!!)
+
+
+#### Deploy on Heroku
+
+- [] heroku account adn  heroku cli 
+- [] remove from the main repo 
+- [] add dev command "nodemon app.js"
+- [] change start to "node app.js"
+- [] setup node version in package.json
+- [] "engines": {"node": "14.x"}
+- [] Procfile "web: node app.js"
+- [] procfile "web: node app.js"
+- [] remove existing  git repo 
+- [] rm -rf .git -mac 
+- [] git init 
+- [] git commit -m "initial commit"
+- [] heroku login 
+- [] heroku create "App Name"

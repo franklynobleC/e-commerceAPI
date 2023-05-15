@@ -27,10 +27,25 @@ const {testController, stripeController} = require('./controllers/stripeControll
 const notFoundMiddleware = require('./middleware/not-found.js');
 const errorHandlerMiddleware = require('./middleware/error-handlers');
 // const login = require('./controllers/login');
+
+//before deploy for security, patches
+const helmet = require('helmet');
+const rateLimiter = require('express-rate-limit');
+const xss = require('xss-clean');
+const cors = require('cors');
+const mongoSanitize = require('express-mongo-sanitize');
  
+app.set('trust proxy');
+app.use( rateLimiter({
+   windows: 15* 60 *1000,
+   max: 60,
+})
+);
 
-
-
+app.use(helmet());
+app.use(cors());
+app.use(xss());
+app.use(mongoSanitize());
 
 
 

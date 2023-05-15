@@ -31,10 +31,10 @@ const getAllUsers = async (req, res) => {
 
 const getSingleUser = async (req, res) => {
 
-      const  id = req.params.id;
+      const {id: userId} = req.params;
 
-       console.log(id)
-    const singleUser = await User.findOne({_id: req.params.id}).select('-password');
+       console.log(userId)
+    const singleUser = await User.findOne({_id: userId}).select('-password');
     // console.log(singleUser)
 
     if (!singleUser) {

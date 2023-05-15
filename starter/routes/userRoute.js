@@ -8,7 +8,7 @@ const {getAllUsers, getSingleUser,
   const{authenticateUser,authorizePermissions} = require('../middleware/authentication')
 
 
-   router.get('/', authenticateUser, authorizePermissions('admin','user'),  getAllUsers)
+   router.get('/getAllUsers', authenticateUser, authorizePermissions('admin','user'),  getAllUsers)
   
   
     router.get('/showMe', authenticateUser, showCurrentUser)
