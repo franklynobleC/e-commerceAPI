@@ -35,22 +35,26 @@ const xss = require('xss-clean');
 const cors = require('cors');
 const mongoSanitize = require('express-mongo-sanitize');
  
-app.set('trust proxy');
-app.use( rateLimiter({
-   windows: 15* 60 *1000,
-   max: 60,
-})
-);
-
-app.use(helmet());
-app.use(cors());
-app.use(xss());
-app.use(mongoSanitize());
-
 
 
 const app = express();
 app.use(morgan('tiny'))
+
+
+app.set('trust proxy')
+
+app.use(
+  rateLimiter({
+    windows: 15 * 60 * 1000,
+    max: 60
+  })
+)
+
+app.use(helmet())
+app.use(cors())
+app.use(xss())
+app.use(mongoSanitize())
+
 app.use(express.json()); // gives  access to  data in json using postman
 app.use(cookieParser(process.env.JWT_SECRET));
 
