@@ -1,4 +1,14 @@
 {
+
+  "name": "e-commerce-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+
   "dependencies": {
     "@sendgrid/mail": "^7.7.0",
     "bcrypt": "^5.1.0",
@@ -21,5 +31,12 @@
     "stripe": "^11.11.0",
     "validator": "^13.9.0",
     "xss-clean": "^0.1.1"
+  },
+
+  "devDependencies": {
+    "nodemon": "^2.0.9"
+  },
+  "engines": {
+    "node": "16.18.1"
   }
 }
